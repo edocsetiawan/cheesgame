@@ -7,7 +7,8 @@
         $input = fopen("php://stdin","r");
         $value = fgets($input);
         $move[$i] = strval($value);
+        $move = array_map('trim', $move);
     }
     echo 'hasil'.PHP_EOL;
-    $result = $checkPawn->findPawn(array_map('trim', $move));
+    $result = $checkPawn->findPawn($move);
 ?>
