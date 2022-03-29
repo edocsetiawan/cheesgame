@@ -2,58 +2,121 @@
     class checkPawn{
 
         public function findPawn($array){
-            $array = array_map('trim', $array);
-            for($x=1;$x<=2;$x++){
-                for($y=1;$y<=2;$y++){
+            for($y=1;$y<9;$y++){
+                for($x=1;$x<9;$x++){
                     $position = $x.','.$y;
                     if(in_array($position,$array)){
+                        $coordinat = explode(',',$position);
+                        $x = $coordinat[0];
+                        $y = $coordinat[1];
+                        $this->checkPosition($x,$y,$array);
                         $position = '';
-                        echo 'match'.PHP_EOL;
                     }else{
                         $position = '';
                     }
                 }
             }
+            print_r($array);
         }
 
-        public function checkRight($pos)
+        private function checkPosition($x,$y,&$array)
+        {
+            $this->checkRight($x,$y,$array);
+            $this->checkLeft($y,$y,$array);
+            $this->checkUp($x,$y,$array);
+            $this->checkDown($x,$y,$array);
+            // $this->checkHorizontalUpRight($x,$y,$array);
+            // $this->checkHorizontalUpLeft($x,$y,$array);
+            // $this->checkHorizontalBottomLeft($x,$y,$array);
+            // $this->checkHorizontalBottomRight($x,$y,$array);
+        }
+
+        private function checkPos($x,$y,&$array)
+        {
+            $position = $x.','.$y;
+            $pos = array_search($position,$array);
+            if($pos != ''){
+                unset($array[$pos]);
+                array_values($array);
+            }
+        }
+
+        private function checkRight($x,$y,&$array)
         {   
-            $coordinat = explode(',',$pos);
-            $x = $coordinat[0];
-            $y = $coordinat[1];
+            echo 'check right'.PHP_EOL;
+            $x +=1;
             for($x;$x<9;$x++){
-                $position = $x.','.$y;
+                $this->checkPos($x,$y,$array);
             }
         }
 
-        public function checkLeft($pos)
+        private function checkLeft($x,$y,&$array)
         {   
-            $coordinat = explode(',',$pos);
-            $x = $coordinat[0];
-            $y = $coordinat[1];
+            $x -= 1;
             for($x;$x>0;$x--){
-                $position = $x.','.$y;
+                $this->checkPos($x,$y,$array);
             }
         }
 
-        public function checkUp($pos)
+        private function checkUp($x,$y,&$array)
         {   
-            $coordinat = explode(',',$pos);
-            $x = $coordinat[0];
-            $y = $coordinat[1];
+            $y += 1;
             for($y;$y<9;$y++){
-                $position = $x.','.$y;
+                $this->checkPos($x,$y,$array);
             }
         }
 
-        public function checkDown($pos)
+        private function checkDown($x,$y,&$array)
         {   
-            $coordinat = explode(',',$pos);
-            $x = $coordinat[0];
-            $y = $coordinat[1];
+            $y -= 1;
             for($y;$y>0;$y--){
-                $position = $x.','.$y;
+                $this->checkPos($x,$y,$array);
             }
         }
+
+        private function checkHorizontalUpRight($x,$y,&$array)
+        {
+            $x += 1;
+            $y += 1;
+            for($x;$x<9;$x++){
+                for($y;$y<9;$y++){
+                    $this->checkPos($x,$y,$array);
+                }
+            }
+        }
+
+        private function checkHorizontalUpLeft($x,$y,&$array)
+        {
+            $x -= 1;
+            $y += 1;
+            for($x;$x>0;$x--){
+                for($y;$y<9;$y++){
+                    $this->checkPos($x,$y,$array);
+                }
+            }   
+        }
+
+        private function checkHorizontalBottomLeft($x,$y,&$array)
+        {
+            $x -= 1;
+            $y -= 1;
+            for($x;$x>0;$x--){
+                for($y;$y>0;$y--){
+                    $this->checkPos($x,$y,$array);
+                }
+            }
+        }
+
+        private function checkHorizontalBottomRight($x,$y,&$array)
+        {
+            $x += 1;
+            $y -= 1;
+            for($x;$x<9;$x++){
+                for($y;$y>0;$y++){
+                    $this->checkPos($x,$y,$array);
+                }
+            }
+        }
+        
     }
 ?>
