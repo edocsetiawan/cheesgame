@@ -10,8 +10,20 @@
             echo 'wrong format!'.PHP_EOL;
             $i--;
         }else{
-            $move[$i] = strval($value);
-            $move = array_map('trim', $move);
+            $checknumber = explode(',',$value);
+            $checknumber = array_map('trim', $checknumber);
+            if(is_numeric($checknumber[0]) && is_numeric($checknumber[1])){
+                    if(($checknumber[0] > 8 || $checknumber[0] < 0) || ($checknumber[1] > 8 || $checknumber[1] < 0)){
+                        echo 'Angka yang diperbolehkan hanya 1 - 8! '.PHP_EOL;
+                        $i--;
+                    }else{
+                        $move[$i] = strval($value);
+                        $move = array_map('trim', $move);
+                    }
+            }else{
+                echo 'Number only!'.PHP_EOL;
+                $i--;
+            }
         }
     }
     echo 'hasil'.PHP_EOL;

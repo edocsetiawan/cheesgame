@@ -12,7 +12,7 @@
                     $position = $x.','.$y;
                     if(in_array($position,$this->arrays)){
                         $coordinat = explode(',',$position);
-                        echo 'Position : '.$position.PHP_EOL;
+                        // echo 'Position : '.$position.PHP_EOL;
                         $x = $coordinat[0];
                         $y = $coordinat[1];
                         $this->checkPosition($x,$y,$this->arrays);
@@ -24,8 +24,10 @@
             }
             if(count($this->arrays) == 8){
                 echo 'tidak ditemukan'.PHP_EOL;
+                return false;
             }else{
                 print_r($this->arrays);
+                return true;
             }
         }
 
@@ -44,7 +46,7 @@
             $position = $x.','.$y;
             $pos = array_search($position,$array);
             if($pos != ''){
-                echo 'Positions : '.$position.PHP_EOL;
+                // echo 'Positions : '.$position.PHP_EOL;
                 unset($array[$pos]);
                 array_values($array);
             }
@@ -53,7 +55,6 @@
 
         private function checkRight($x,$y,&$array)
         {   
-            echo 'check right'.PHP_EOL;
             for($x+1;$x+1<9;$x++){
                 $this->checkPos($x+1,$y,$array);
             }
