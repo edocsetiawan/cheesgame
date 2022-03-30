@@ -22,13 +22,17 @@
                     }
                 }
             }
-            print_r($this->arrays);
+            if(count($this->arrays) == 8){
+                echo 'tidak ditemukan'.PHP_EOL;
+            }else{
+                print_r($this->arrays);
+            }
         }
 
         private function checkPosition($x,$y,&$array)
         {
             $this->checkRight($x,$y,$array);
-            $this->checkLeft($y,$y,$array);
+            $this->checkLeft($x,$y,$array);
             $this->checkUp($x,$y,$array);
             $this->checkHorizontalUpRight($x,$y,$array);
             $this->checkHorizontalUpLeft($x,$y,$array);
@@ -58,13 +62,13 @@
         private function checkLeft($x,$y,&$array)
         {   
             for($i=1;$i<$x;$i++){
-                    $this->checkPos($i,$y,$array);
+                $this->checkPos($i,$y,$array);
             }
         }
 
         private function checkUp($x,$y,&$array)
         {   
-            $y += 1;
+            $y = $y + 1;
             for($y;$y<9;$y++){
                 $this->checkPos($x,$y,$array);
             }
@@ -74,14 +78,16 @@
         private function checkHorizontalUpRight($x,$y,&$array)
         {
             for($x+1;$x+1<9;$x++){
-                    $this->checkPos($x+1,$y+1,$array);
+                $y = $y + 1;
+                    $this->checkPos($x+1,$y,$array);
             }
         }
 
         private function checkHorizontalUpLeft($x,$y,&$array)
         {
             for($x-1;$x>0;$x--){
-                $this->checkPos($x-1,$y+1,$array);
+                $y = $y +1;
+                $this->checkPos($x-1,$y,$array);
             }   
         }
     }
